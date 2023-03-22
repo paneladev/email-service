@@ -1,9 +1,9 @@
 package br.com.paneladev.service;
 
-import br.com.paneladev.dto.MessageDto;
 import br.com.paneladev.entity.Email;
 import br.com.paneladev.repository.EmailRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmailService {
 
     private final EmailRepository repository;
     private final JavaMailSender sender;
-
 
     public Email sendEmail(Email email) {
 
@@ -34,8 +34,8 @@ public class EmailService {
 
             sender.send(message);
         } catch (MailException ex) {
-            System.out.println("alerta de envio de email");
             email.setSend(false);
+            log.warn("Erro na tentativa de envio de email. Message: {}", ex.getMessage());
         } finally {
             repository.save(email);
         }
