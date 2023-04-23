@@ -13,10 +13,13 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: email@gmail.com
-    password: ****
+    password: senha
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enabled: true
+
+feature-toggle:
+  resendEmail: true

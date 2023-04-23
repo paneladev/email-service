@@ -1,0 +1,2 @@
+feature-toggle:
+  resendEmail: false
